@@ -15,11 +15,25 @@
         <div class="experience-canvas">
           <canvas class="pepitos"></canvas>
         </div>
-        <div class="step step-background">
-          <h3>Background</h3>
-          <div class="step-controls">
-            <button data-color="#ffffff">White</button>
-            <button data-color="#000000">Back</button>
+        <div class="steps">
+          <div class="step step-background">
+            <h3>Background</h3>
+            <div class="step-controls">
+              <button data-color="#ffffff">White</button>
+              <button data-color="#000000">Back</button>
+            </div>
+          </div>
+
+          <div class="step step-music">
+            <h3>Music</h3>
+            <select id="step-music-select">
+              <option selected disabled>Select one</option>
+              <option value="grimes">Grimes</option>
+              <option value="saoki">Stivie Aoki</option>
+              <option value="jdivision">Joy Division</option>
+              <option value="amonkeys">Arctic Monkeys</option>
+            </select>
+            <button>Play / pause</button>
           </div>
         </div>
       </section>

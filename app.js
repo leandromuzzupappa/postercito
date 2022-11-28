@@ -1,5 +1,15 @@
+import {
+  sources,
+  audioStatus,
+  initAudio,
+  audioLoop,
+} from "./assets/scripts/audio.js";
+
 const canvas = document.querySelector("canvas.pepitos");
 const stepBackground = document.querySelector(".step-background");
+const stepMusic = document.querySelector(".step-music");
+
+//initAudio(sources.grimes);
 
 const rendererSize = {
   width: 1080,
@@ -26,6 +36,27 @@ const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+let textureMesh;
+const texturePlane = new THREE.PlaneGeometry(4.4, 4.4);
+const textureImage = new THREE.TextureLoader().load(
+  "./assets/images/background.jpg",
+  (text) => {
+    text.needsUpdate = true;
+    textureMesh.scale.set(1.0, text.image.height / text.image.width, 1.0);
+  }
+);
+const textureMaterial = new THREE.MeshLambertMaterial({
+  map: textureImage,
+  color: 0xffffff,
+  transparent: true,
+});
+textureMesh = new THREE.Mesh(texturePlane, textureMaterial);
+scene.add(textureMesh);
+
+/* Lights */
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambientLight);
+
 /* Steps */
 stepBackground.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", () => {
@@ -33,11 +64,20 @@ stepBackground.querySelectorAll("button").forEach((button) => {
   });
 });
 
-function animate() {
+stepMusic.querySelector("select").addEventListener("change", (event) => {
+  const value = event.target.value;
+  initAudio(sources[value]);
+});
+
+function animate(time) {
   requestAnimationFrame(animate);
 
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
+
+  if (audioStatus === "playing") {
+    console.log(audioLoop());
+  }
 
   renderer.render(scene, camera);
 }
