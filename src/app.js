@@ -4,10 +4,10 @@ import {
   initAudio,
   audioLoop,
 } from "./assets/scripts/audio.js";
-import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js?raw";
-import textureVertexShader from "./assets/scripts/texture-vertex-shader.js?raw";
-import sphereFragmentShader from "./assets/scripts/sphere-fragment-shader.js?raw";
-import sphereVertexShader from "./assets/scripts/sphere-vertex-shader.js?raw";
+import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js";
+import textureVertexShader from "./assets/scripts/texture-vertex-shader.js";
+import sphereFragmentShader from "./assets/scripts/sphere-fragment-shader.js";
+import sphereVertexShader from "./assets/scripts/sphere-vertex-shader.js";
 import background from "./assets/images/bg33.png";
 
 const canvas = document.querySelector("canvas.pepitos");
@@ -20,7 +20,7 @@ const rendererSize = {
   height: 1920,
 };
 
-initAudio(sources.amonkeys);
+//initAudio(sources.amonkeys);
 
 const scene = new THREE.Scene();
 // prettier-ignore
