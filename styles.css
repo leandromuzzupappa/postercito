@@ -53,7 +53,8 @@ section h2 {
   gap: 2rem;
 }
 
-.step-background button {
+.step-background button,
+.step-asset button {
   width: 100%;
   background: none;
   color: #fff;
@@ -64,7 +65,9 @@ section h2 {
   cursor: pointer;
 }
 
-.step-background button:hover {
+.step-background button:hover,
+.step-music button:hover,
+.step-asset button:hover {
   background: #fff;
   color: #000;
 }
@@ -89,7 +92,7 @@ section h2 {
   margin-left: 2rem;
 }
 
-.step-music button:hover {
-  background: #fff;
-  color: #000;
+.step-asset .step-colors {
+  display: flex;
+  gap: 2rem;
 }
