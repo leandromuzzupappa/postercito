@@ -65,7 +65,7 @@ function audioLoop() {
   //   console.log("frequency", frequency);
   //   console.log("amplitude", amplitude);
 
-  /*  console.log({
+  /*   console.log({
     frequency: audioSignal(analyserNode, frequencyData, 100, 500),
     amplitude: audioSignal(analyserNode, frequencyData, 10, 100),
   }); */
@@ -118,6 +118,16 @@ function map(value, start1, stop1, start2, stop2, withinBounds) {
   }
 }
 
+function togglePlay() {
+  if (audioStatus === "stopped") {
+    audio.play();
+    audioStatus = "playing";
+  } else {
+    audio.pause();
+    audioStatus = "stopped";
+  }
+}
+
 /* window.addEventListener("focus", () => {
   if (audioContext && audio) {
     audio.play();
@@ -129,4 +139,4 @@ window.addEventListener("blur", () => {
 });
  */
 
-export { sources, audioStatus, initAudio, audioLoop };
+export { sources, audioStatus, initAudio, audioLoop, togglePlay };

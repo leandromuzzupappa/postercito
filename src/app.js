@@ -3,6 +3,7 @@ import {
   audioStatus,
   initAudio,
   audioLoop,
+  togglePlay,
 } from "./assets/scripts/audio.js";
 import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js";
 import textureVertexShader from "./assets/scripts/texture-vertex-shader.js";
@@ -14,6 +15,7 @@ const canvas = document.querySelector("canvas.pepitos");
 const stepBackground = document.querySelector(".step-background");
 const stepMusic = document.querySelector(".step-music");
 const stepAsset = document.querySelector(".step-asset");
+const stepDownload = document.querySelector(".step-download");
 
 const rendererSize = {
   width: 1080,
@@ -21,6 +23,8 @@ const rendererSize = {
 };
 
 //initAudio(sources.amonkeys);
+
+canvas.addEventListener("click", downloadImage);
 
 const scene = new THREE.Scene();
 // prettier-ignore
@@ -33,6 +37,7 @@ camera.updateProjectionMatrix();
 const renderer = new THREE.WebGLRenderer({
   canvas,
   antialias: true,
+  preserveDrawingBuffer: true,
 });
 renderer.setSize(rendererSize.width, rendererSize.height, false);
 renderer.setClearColor(0x000000, 1);
@@ -40,6 +45,7 @@ renderer.setClearColor(0x000000, 1);
 /* const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
+cube.position.z = 2;
 scene.add(cube); */
 
 const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
@@ -88,12 +94,18 @@ stepMusic.querySelector("select").addEventListener("change", (event) => {
   initAudio(sources[value]);
 });
 
+stepMusic.querySelector("button").addEventListener("click", () => {
+  togglePlay();
+});
+
 stepAsset.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", () => {
     const color = button.dataset.color;
     sphereMaterial.uniforms.uColor.value = new THREE.Color(color);
   });
 });
+
+stepDownload.querySelector("button").addEventListener("click", downloadImage);
 
 function animate(time) {
   requestAnimationFrame(animate);
@@ -117,13 +129,16 @@ function animate(time) {
 }
 animate();
 
+function downloadImage() {
+  const link = document.createElement("a");
+  link.download = `pepitos-${Date.now()}.png`;
+  console.log(renderer.domElement);
+  link.href = renderer.domElement.toDataURL("image/png");
+  link.click();
+}
+
 window.addEventListener("resize", () => {
   camera.aspect =
     canvas.parentNode.clientWidth / canvas.parentNode.clientHeight;
   camera.updateProjectionMatrix();
-});
-
-window.addEventListener("mousemove", (event) => {
-  textureMaterial.uniforms.uMouse.value.x = event.clientX;
-  textureMaterial.uniforms.uMouse.value.y = event.clientY;
 });
