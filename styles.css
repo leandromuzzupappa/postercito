@@ -68,3 +68,28 @@ section h2 {
   background: #fff;
   color: #000;
 }
+
+.step-music select {
+  border: 1px solid #fff;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.step-music button {
+  width: 55px;
+  height: 55px;
+  border-radius: 60px;
+  background: none;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+.step-music button:hover {
+  background: #fff;
+  color: #000;
+}

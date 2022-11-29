@@ -4,12 +4,12 @@ import {
   initAudio,
   audioLoop,
 } from "./assets/scripts/audio.js";
+import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js";
+import textureVertexShader from "./assets/scripts/texture-vertex-shader.js";
 
 const canvas = document.querySelector("canvas.pepitos");
 const stepBackground = document.querySelector(".step-background");
 const stepMusic = document.querySelector(".step-music");
-
-//initAudio(sources.grimes);
 
 const rendererSize = {
   width: 1080,
@@ -36,26 +36,27 @@ const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-let textureMesh;
-const texturePlane = new THREE.PlaneGeometry(4.4, 4.4);
 const textureImage = new THREE.TextureLoader().load(
-  "./assets/images/background.jpg",
-  (text) => {
-    text.needsUpdate = true;
-    textureMesh.scale.set(1.0, text.image.height / text.image.width, 1.0);
-  }
+  "assets/images/background.jpg"
 );
-const textureMaterial = new THREE.MeshLambertMaterial({
-  map: textureImage,
-  color: 0xffffff,
-  transparent: true,
-});
-textureMesh = new THREE.Mesh(texturePlane, textureMaterial);
-scene.add(textureMesh);
 
-/* Lights */
-const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-scene.add(ambientLight);
+const texturePlane = new THREE.PlaneGeometry(4.3, 8);
+const textureMaterial = new THREE.ShaderMaterial({
+  vertexShader: textureVertexShader,
+  fragmentShader: textureFragmentShader,
+  uniforms: {
+    uTexture: { type: "t", value: textureImage },
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
+    uFrequency: { value: 0 },
+    uAmplitude: { value: 0 },
+  },
+});
+
+textureMaterial.transparent = true;
+
+const textureMesh = new THREE.Mesh(texturePlane, textureMaterial);
+scene.add(textureMesh);
 
 /* Steps */
 stepBackground.querySelectorAll("button").forEach((button) => {
@@ -76,8 +77,12 @@ function animate(time) {
   cube.rotation.y += 0.01;
 
   if (audioStatus === "playing") {
-    console.log(audioLoop());
+    textureMaterial.uniforms.uAmplitude.value = audioLoop().amplitude;
+    textureMaterial.uniforms.uFrequency.value = audioLoop().frequency;
   }
+
+  textureMaterial.uniforms.uTime.value = time * 0.001;
+  textureMaterial.needsUpdate = true;
 
   renderer.render(scene, camera);
 }
@@ -87,4 +92,9 @@ window.addEventListener("resize", () => {
   camera.aspect =
     canvas.parentNode.clientWidth / canvas.parentNode.clientHeight;
   camera.updateProjectionMatrix();
+});
+
+window.addEventListener("mousemove", (event) => {
+  textureMaterial.uniforms.uMouse.value.x = event.clientX;
+  textureMaterial.uniforms.uMouse.value.y = event.clientY;
 });

@@ -59,12 +59,21 @@ function audioLoop() {
   const treble = audioSignal(analyserNode, frequencyData, 2000, 10000);
   const voice = audioSignal(analyserNode, frequencyData, 5000, 7000);
 
-  frequency = map(voice, 0, 1, minFrequency, maxFrequency);
-  amplitude = map(drum, 0, 1, minAmplitude, maxAmplitude);
+  /* frequency = map(voice, 0, 1, minFrequency, maxFrequency);
+  amplitude = map(drum, 0, 1, minAmplitude, maxAmplitude); */
 
-  console.log("frequency", frequency);
-  console.log("amplitude", amplitude);
-  return { frequency, amplitude };
+  //   console.log("frequency", frequency);
+  //   console.log("amplitude", amplitude);
+
+  /*  console.log({
+    frequency: audioSignal(analyserNode, frequencyData, 100, 500),
+    amplitude: audioSignal(analyserNode, frequencyData, 10, 100),
+  }); */
+
+  return {
+    frequency: audioSignal(analyserNode, frequencyData, 100, 500),
+    amplitude: audioSignal(analyserNode, frequencyData, 10, 100),
+  };
 }
 
 function frequencyToIndex(frequencyHz, sampleRate, frequencyBinCount) {

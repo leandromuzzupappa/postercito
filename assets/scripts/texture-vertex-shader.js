@@ -1,12 +1,9 @@
 export default /* glsl */ `
-    precision highp float;
-
     varying vec2 vUv;
-    uniform float time;
+    uniform float uTime;
 
-    void main() {
+    void main( void ) {
         vUv = uv;
-        
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
     }
 `;
