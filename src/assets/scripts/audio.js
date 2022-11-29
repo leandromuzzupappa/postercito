@@ -1,8 +1,8 @@
 const sources = {
-  grimes: "assets/audios/grimes.mp3",
-  saoki: "assets/audios/saoki.mp3",
-  jdivision: "assets/audios/jdivision.mp3",
-  amonkeys: "assets/audios/amonkeys.mp3",
+  grimes: "../audios/grimes.mp3",
+  saoki: "../audios/saoki.mp3",
+  jdivision: "../audios/jdivision.mp3",
+  amonkeys: "../audios/amonkeys.mp3",
 };
 
 let audioStatus = "stopped";

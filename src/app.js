@@ -4,10 +4,11 @@ import {
   initAudio,
   audioLoop,
 } from "./assets/scripts/audio.js";
-import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js";
-import textureVertexShader from "./assets/scripts/texture-vertex-shader.js";
-import sphereFragmentShader from "./assets/scripts/sphere-fragment-shader.js";
-import sphereVertexShader from "./assets/scripts/sphere-vertex-shader.js";
+import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js?raw";
+import textureVertexShader from "./assets/scripts/texture-vertex-shader.js?raw";
+import sphereFragmentShader from "./assets/scripts/sphere-fragment-shader.js?raw";
+import sphereVertexShader from "./assets/scripts/sphere-vertex-shader.js?raw";
+import background from "./assets/images/bg33.png";
 
 const canvas = document.querySelector("canvas.pepitos");
 const stepBackground = document.querySelector(".step-background");
@@ -55,7 +56,7 @@ const sphereMaterial = new THREE.ShaderMaterial({
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 
-const textureImage = new THREE.TextureLoader().load("assets/images/bg33.png");
+const textureImage = new THREE.TextureLoader().load(background);
 
 const texturePlane = new THREE.PlaneGeometry(4.3, 8);
 const textureMaterial = new THREE.ShaderMaterial({
