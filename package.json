@@ -4,10 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "live-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "LMuzzupappa",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^3.2.4"
+  }
 }
