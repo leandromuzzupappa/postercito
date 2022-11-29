@@ -36,9 +36,7 @@ const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-const textureImage = new THREE.TextureLoader().load(
-  "assets/images/background.jpg"
-);
+const textureImage = new THREE.TextureLoader().load("assets/images/bg33.png");
 
 const texturePlane = new THREE.PlaneGeometry(4.3, 8);
 const textureMaterial = new THREE.ShaderMaterial({
