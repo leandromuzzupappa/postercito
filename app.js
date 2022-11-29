@@ -6,10 +6,13 @@ import {
 } from "./assets/scripts/audio.js";
 import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js";
 import textureVertexShader from "./assets/scripts/texture-vertex-shader.js";
+import sphereFragmentShader from "./assets/scripts/sphere-fragment-shader.js";
+import sphereVertexShader from "./assets/scripts/sphere-vertex-shader.js";
 
 const canvas = document.querySelector("canvas.pepitos");
 const stepBackground = document.querySelector(".step-background");
 const stepMusic = document.querySelector(".step-music");
+const stepAsset = document.querySelector(".step-asset");
 
 const rendererSize = {
   width: 1080,
@@ -31,10 +34,24 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(rendererSize.width, rendererSize.height, false);
 renderer.setClearColor(0x000000, 1);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+/* const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+scene.add(cube); */
+
+const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+const sphereMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uColor: { value: new THREE.Color("black") },
+    uTime: { value: 0 },
+    uAmplitude: { value: 0 },
+    uFrequency: { value: 0 },
+  },
+  vertexShader: sphereVertexShader,
+  fragmentShader: sphereFragmentShader,
+});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+scene.add(sphere);
 
 const textureImage = new THREE.TextureLoader().load("assets/images/bg33.png");
 
@@ -68,19 +85,30 @@ stepMusic.querySelector("select").addEventListener("change", (event) => {
   initAudio(sources[value]);
 });
 
+stepAsset.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const color = button.dataset.color;
+    sphereMaterial.uniforms.uColor.value = new THREE.Color(color);
+  });
+});
+
 function animate(time) {
   requestAnimationFrame(animate);
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  /* cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01; */
 
   if (audioStatus === "playing") {
     textureMaterial.uniforms.uAmplitude.value = audioLoop().amplitude;
     textureMaterial.uniforms.uFrequency.value = audioLoop().frequency;
+    sphereMaterial.uniforms.uAmplitude.value = audioLoop().amplitude;
+    sphereMaterial.uniforms.uFrequency.value = audioLoop().frequency;
   }
 
   textureMaterial.uniforms.uTime.value = time * 0.001;
   textureMaterial.needsUpdate = true;
+  sphereMaterial.uniforms.uTime.value = time * 0.001;
+  sphereMaterial.needsUpdate = true;
 
   renderer.render(scene, camera);
 }

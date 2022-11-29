@@ -12,6 +12,7 @@ export default /* glsl */ `
 
     void main() {
         vec2 pos = vUv;
+
         float t1 = uTime;
         float t2 = uTime * 0.37;
 
@@ -27,15 +28,10 @@ export default /* glsl */ `
         );
 
 
-        if(
-            vUv.x < .1 || vUv.x > .9 || 
-            vUv.y < .08 || vUv.y > .92
-        ) { 
-            discard;
-        }
-
-
+    
         vec4 image = texture2D(uTexture, uv);
+        image.rgb += uColor;
+
         gl_FragColor = image;
     }
 `;
