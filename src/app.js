@@ -9,6 +9,7 @@ import textureFragmentShader from "./assets/scripts/texture-fragment-shader.js";
 import textureVertexShader from "./assets/scripts/texture-vertex-shader.js";
 import sphereFragmentShader from "./assets/scripts/sphere-fragment-shader.js";
 import sphereVertexShader from "./assets/scripts/sphere-vertex-shader.js";
+//import background from "./assets/images/bg4.jpeg";
 import background from "./assets/images/bg33.png";
 
 const canvas = document.querySelector("canvas.pepitos");

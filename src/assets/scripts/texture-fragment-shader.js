@@ -17,8 +17,8 @@ export default /* glsl */ `
 
         float y = vUv.y;
 
-        float off1 = sin((y + 0.5) * mix(20. + uAmplitude , 60. + uFrequency, upDown(t1))) * uAmplitude * 0.02;
-        float off2 = tan((vUv.x + .5) * mix(10. + uFrequency, 3. * -uFrequency, upDown(t2 * uFrequency)) + 52.) * uAmplitude * 0.02;
+        float off1 = sin((y + 0.5) * mix(20. + uAmplitude , 60. + uFrequency, upDown(t1))) * uAmplitude * 0.008;
+        float off2 = tan((vUv.x + .5) * mix(10. + uFrequency, 3. * -uFrequency, upDown(t2 * uFrequency)) + 52.) * uAmplitude * 0.008;
         float off = off1 + off2;
 
         vec2 uv = vec2(

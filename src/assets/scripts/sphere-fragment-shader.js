@@ -5,6 +5,7 @@ export default /* glsl */ `
     uniform float uFrequency;
     uniform float uAmplitude;
     uniform vec3 uColor;
+    varying float vElevation;
 
     float upDown(float v) {
         return sin(v) * .5 + .5;
@@ -31,6 +32,9 @@ export default /* glsl */ `
     
         vec4 image = texture2D(uTexture, uv);
         image.rgb += uColor;
+        //image.rgb *= vElevation;
+
+        //image.r = vElevation;
 
         gl_FragColor = image;
     }
