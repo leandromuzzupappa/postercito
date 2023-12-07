@@ -27,15 +27,17 @@ export default /* glsl */ `
         );
 
 
+        vec4 image = texture2D(uTexture, uv);
+
         if(
-            vUv.x < .1 || vUv.x > .9 || 
-            vUv.y < .08 || vUv.y > .92
+            vUv.x < upDown(off1) * .004 || vUv.x > uFrequency * 1. || 
+            vUv.y < uFrequency * .1 || vUv.y > upDown(off2)
         ) { 
             discard;
         }
 
 
-        vec4 image = texture2D(uTexture, uv);
+        image.a = off + 0.05;
         gl_FragColor = image;
     }
 `;

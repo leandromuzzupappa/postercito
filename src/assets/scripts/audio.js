@@ -3,6 +3,8 @@ const sources = {
   saoki: "../audios/saoki.mp3",
   jdivision: "../audios/jdivision.mp3",
   amonkeys: "../audios/amonkeys.mp3",
+  awonderland: "../audios/awonderland.mp3",
+  gcerati: "../audios/gcerati.mp3",
 };
 
 let audioStatus = "stopped";
@@ -73,6 +75,11 @@ function audioLoop() {
   return {
     frequency: audioSignal(analyserNode, frequencyData, 100, 500),
     amplitude: audioSignal(analyserNode, frequencyData, 10, 100),
+    drum,
+    bass,
+    mid,
+    treble,
+    voice,
   };
 }
 

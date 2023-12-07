@@ -26,17 +26,73 @@ section h2 {
 
 .experience-canvas {
   position: relative;
-  /* width: 594px; */
+  width: 100vw;
   height: 100%;
-  aspect-ratio: 9 / 16;
 }
 
 .experience-canvas canvas {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   background: black;
   cursor: url("/download.svg"), auto;
+}
+
+.dot {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 50px;
+  aspect-ratio: 1 / 1;
+  background: #485563;
+  background: -webkit-conic-gradient(#4776e6, #8e54e9);
+  background: conic-gradient(#4776e6, #8e54e9);
+  z-index: 99;
+  border-radius: 100%;
+  border: none;
+  cursor: pointer;
+  animation: rotate 1s infinite forwards linear;
+}
+
+.dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #333;
+  border-radius: 100%;
+  transform: scale(0.9);
+}
+
+.dot[data-open="true"] {
+  background: -webkit-conic-gradient(#9796f0, #fbc7d4);
+  background: conic-gradient(#9796f0, #fbc7d4);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.steps {
+  width: 50vw;
+  height: 100%;
+  top: 0;
+  right: -50vw;
+  position: absolute;
+  background: rgba(0.1, 0.1, 0.1, 0.7);
+  padding: 2rem;
+  transition: right 0.3s;
+}
+
+.steps.opened {
+  right: 0vw;
 }
 
 .step {

@@ -140,7 +140,25 @@ vec4 mod289(vec4 x) {
         vUv = uv;
 
         vec3 pos = position.xyz;
+
+        if( uAmplitude > .3 ) {
+          pos -= min(normal * sin(uTime * uFrequency) * uAmplitude, .5) * uAmplitude * 0.5;
+
+        }
+
+        if( uAmplitude > .5 ) {
+          pos -= min(normal * sin(uTime * uFrequency) * uAmplitude, .5) * uAmplitude;
+
+        }
+
+        if( uAmplitude > .8 ) {
+          pos += normal * snoise(vec4( pos.xyz * uFrequency, uTime)) * uAmplitude * 3.;
+
+        }
+
         pos += normal * snoise(vec4( pos.xyz * uFrequency, uTime));
+        
+
 
         vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
         vec4 viewPosition = viewMatrix * modelPosition;
@@ -151,17 +169,18 @@ vec4 mod289(vec4 x) {
         
         modelPosition.z += elevation; */
 
-        /* 
+        
         
 
-        pos += min(normal * sin(uTime * uFrequency) * uAmplitude, .5) * .02;
-        pos += normal * snoise(vec4( pos.xyz * 100.0, uTime)); */
+        
 
         float elevation = sin(modelPosition.x * uFrequency - uTime) * 0.1;
-        elevation += sin(modelPosition.y * uFrequency - uTime) * 0.1;
+        elevation += sin(modelPosition.y * uFrequency - uTime) * 2.1;
         
         modelPosition.z += elevation;
+        //modelPosition.z += elevation;
         
+        //projectedPosition.xyz += pos * normalize(viewPosition.xyz);
 
         gl_Position = projectedPosition;
     }

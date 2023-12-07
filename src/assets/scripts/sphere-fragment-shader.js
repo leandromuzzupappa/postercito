@@ -28,13 +28,12 @@ export default /* glsl */ `
             1.1 - (y + off * uFrequency)
         );
 
-
-    
         vec4 image = texture2D(uTexture, uv);
         image.rgb += uColor;
         //image.rgb *= vElevation;
 
         //image.r = vElevation;
+
 
         gl_FragColor = image;
     }
